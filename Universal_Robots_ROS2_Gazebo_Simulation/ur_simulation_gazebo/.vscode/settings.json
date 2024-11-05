@@ -1,0 +1,24 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/histo/ros2_ws/src/install/srdfdom/local/lib/python3.10/dist-packages",
+        "/home/histo/ros2_ws/src/build/launch_param_builder",
+        "/home/histo/ros2_ws/src/install/launch_param_builder/lib/python3.10/site-packages",
+        "/home/histo/ros2_ws/install/pymoveit2/local/lib/python3.10/dist-packages",
+        "/home/histo/ros2_ws/install/my_robot_controller/lib/python3.10/site-packages",
+        "/home/histo/ros2_ws/src/install/pymoveit2/local/lib/python3.10/dist-packages",
+        "/home/histo/ros2_ws/src/install/my_robot_controller/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/histo/ros2_ws/src/install/srdfdom/local/lib/python3.10/dist-packages",
+        "/home/histo/ros2_ws/src/build/launch_param_builder",
+        "/home/histo/ros2_ws/src/install/launch_param_builder/lib/python3.10/site-packages",
+        "/home/histo/ros2_ws/install/pymoveit2/local/lib/python3.10/dist-packages",
+        "/home/histo/ros2_ws/install/my_robot_controller/lib/python3.10/site-packages",
+        "/home/histo/ros2_ws/src/install/pymoveit2/local/lib/python3.10/dist-packages",
+        "/home/histo/ros2_ws/src/install/my_robot_controller/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}

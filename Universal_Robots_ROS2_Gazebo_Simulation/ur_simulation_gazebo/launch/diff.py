@@ -1,10 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import (
-    DeclareLaunchArgument,
-    IncludeLaunchDescription,
-    OpaqueFunction,
-    RegisterEventHandler,
-)
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction, RegisterEventHandler
 from launch.conditions import IfCondition, UnlessCondition
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -14,7 +9,6 @@ from launch_ros.substitutions import FindPackageShare
 import os
 
 def launch_setup(context, *args, **kwargs):
-    # Initialize Arguments
     ur_type = LaunchConfiguration("ur_type")
     safety_limits = LaunchConfiguration("safety_limits")
     safety_pos_margin = LaunchConfiguration("safety_pos_margin")
@@ -73,35 +67,29 @@ def launch_setup(context, *args, **kwargs):
         parameters=[{"use_sim_time": True}, robot_description],
     )
 
-# ######################################################################################
+    rviz_node = Node(
+        package="rviz2",
+        executable="rviz2",
+        name="rviz2",
+        output="log",
+        arguments=["-d", rviz_config_file],
+        condition=IfCondition(launch_rviz),
+    )
 
-#     rviz_node = Node(
-#         package="rviz2",
-#         executable="rviz2",
-#         name="rviz2",
-#         output="log",
-#         arguments=["-d", rviz_config_file],
-#         condition=IfCondition(launch_rviz),
-#     )
-# ######################################################################################
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
-# ######################################################################################
-#     # Delay rviz start after `joint_state_broadcaster`
-#     delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
-#         event_handler=OnProcessExit(
-#             target_action=joint_state_broadcaster_spawner,
-#             on_exit=[rviz_node],
-#         ),
-#         condition=IfCondition(launch_rviz),
-#     )
+    delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=joint_state_broadcaster_spawner,
+            on_exit=[rviz_node],
+        ),
+        condition=IfCondition(launch_rviz),
+    )
 
-# ######################################################################################
-    # There may be other controllers of the joints, but this is the initially-started one
     initial_joint_controller_spawner_started = Node(
         package="controller_manager",
         executable="spawner",
@@ -115,19 +103,13 @@ def launch_setup(context, *args, **kwargs):
         condition=UnlessCondition(start_joint_controller),
     )
 
-    # Path to the world file
     world_file_path = PathJoinSubstitution(
         [FindPackageShare("ur_simulation_gazebo"), "worlds", "simple_pick_and_place.world"]
     ).perform(context)
 
-    # Print the resolved path
-    print(f"Resolved world file path: {world_file_path}")
-
-    # Check if the path exists
     if not os.path.exists(world_file_path):
         raise FileNotFoundError(f"World file not found: {world_file_path}")
 
-    # Gazebo nodes
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [FindPackageShare("gazebo_ros"), "/launch", "/gazebo.launch.py"]
@@ -138,24 +120,20 @@ def launch_setup(context, *args, **kwargs):
         }.items(),
     )
 
-    # Spawn robot
     gazebo_spawn_robot = Node(
         package="gazebo_ros",
         executable="spawn_entity.py",
         name="spawn_ur",
         arguments=[
-            "-entity", "ur", 
+            "-entity", "ur",
             "-topic", "robot_description",
-            "-x", "0.0", 
-            "-y", "0.0", 
-            "-z", "1.21"  # Adjust the z value to place the robot on the table
+            "-x", "0.0",
+            "-y", "0.0",
+            "-z", "1.21"
         ],
         output="screen",
     )
 
-    
-
-    # MoveIt! integration
     moveit_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [FindPackageShare("ur_moveit_config"), "/launch", "/ur_moveit.launch.py"]
@@ -170,14 +148,14 @@ def launch_setup(context, *args, **kwargs):
             "prefix": prefix,
             "use_sim_time": "true",
             "launch_rviz": "true",
-            "use_fake_hardware": "true",  # to change moveit default controller to joint_trajectory_controller
+            "use_fake_hardware": "true",
         }.items(),
     )
 
     nodes_to_start = [
         robot_state_publisher_node,
         joint_state_broadcaster_spawner,
-        # delay_rviz_after_joint_state_broadcaster_spawner,
+        delay_rviz_after_joint_state_broadcaster_spawner,
         initial_joint_controller_spawner_stopped,
         initial_joint_controller_spawner_started,
         gazebo,
@@ -189,7 +167,6 @@ def launch_setup(context, *args, **kwargs):
 
 def generate_launch_description():
     declared_arguments = []
-    # UR specific arguments
     declared_arguments.append(
         DeclareLaunchArgument(
             "ur_type",
@@ -219,13 +196,11 @@ def generate_launch_description():
             description="k-position factor in the safety controller.",
         )
     )
-    # General arguments
     declared_arguments.append(
         DeclareLaunchArgument(
             "runtime_config_package",
             default_value="ur_simulation_gazebo",
-            description='Package with the controller\'s configuration in "config" folder. \
-        Usually the argument is not set, it enables use of a custom setup.',
+            description='Package with the controller\'s configuration in "config" folder.',
         )
     )
     declared_arguments.append(
@@ -239,8 +214,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             "description_package",
             default_value="ur_description",
-            description="Description package with robot URDF/XACRO files. Usually the argument \
-        is not set, it enables use of a custom description.",
+            description="Description package with robot URDF/XACRO files.",
         )
     )
     declared_arguments.append(
@@ -254,9 +228,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             "prefix",
             default_value='""',
-            description="Prefix of the joint names, useful for \
-        multi-robot setup. If changed than also joint names in the controllers' configuration \
-        have to be updated.",
+            description="Prefix of the joint names.",
         )
     )
     declared_arguments.append(
@@ -281,7 +253,6 @@ def generate_launch_description():
             "gazebo_gui", default_value="true", description="Start gazebo with GUI?"
         )
     )
-    # MoveIt specific arguments
     declared_arguments.append(
         DeclareLaunchArgument(
             "moveit_config_package",

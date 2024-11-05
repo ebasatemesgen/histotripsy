@@ -1,0 +1,46 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/histo/ros2_ws/src/install/srdfdom/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_planners/chomp/chomp_interface/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_planners/chomp/chomp_motion_planner/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_planners/pilz_industrial_motion_planner/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_planners/pilz_industrial_motion_planner_testutils/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_planners/test_configs/prbt_ikfast_manipulator_plugin/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_plugins/moveit_ros_control_interface/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_plugins/moveit_simple_controller_manager/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_ros/benchmarks/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_ros/move_group/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_ros/moveit_servo/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_ros/occupancy_map_monitor/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_ros/robot_interaction/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_ros/warehouse/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_setup_assistant/moveit_setup_app_plugins/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_setup_assistant/moveit_setup_assistant/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_setup_assistant/moveit_setup_controllers/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_setup_assistant/moveit_setup_core_plugins/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_setup_assistant/moveit_setup_framework/include/**",
+        "/home/histo/ros2_ws/src/moveit2/moveit_setup_assistant/moveit_setup_srdf_plugins/include/**",
+        "/home/histo/ros2_ws/src/moveit_task_constructor/core/include/**",
+        "/home/histo/ros2_ws/src/moveit_task_constructor/demo/include/**",
+        "/home/histo/ros2_ws/src/moveit_task_constructor/rviz_marker_tools/include/**",
+        "/home/histo/ros2_ws/src/moveit_visual_tools/include/**",
+        "/home/histo/ros2_ws/src/rosparam_shortcuts/include/**",
+        "/home/histo/ros2_ws/src/srdfdom/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

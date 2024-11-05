@@ -16,6 +16,24 @@
 
 
 
+      <actor name="actor">
+         <skin>
+            <filename>file://media/models/walk.dae</filename>
+            <scale>1.0</scale>
+         </skin>
+         <pose>0 0 10 0 0 0</pose>
+         <animation name="walking">
+            <filename>file://media/models/walk.dae</filename>
+            <scale>1.000000</scale>
+            <interpolate_x>true</interpolate_x>
+         </animation>
+         <script>
+            <loop>true</loop>
+            <delay_start>0.000000</delay_start>
+            <auto_start>true</auto_start>
+         </script>
+      </actor>
+
 
     
     <model name='ground_plane'>
@@ -90,12 +108,70 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
-
+    <model name='bowl'>
+      <link name='link'>
+        <inertial>
+          <pose frame=''>0 0 0.0175 0 -0 0</pose>
+          <mass>0.1</mass>
+          <inertia>
+            <ixx>0.000250308</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.000250308</iyy>
+            <iyz>0</iyz>
+            <izz>0.0004802</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <pose frame=''>0 0 0.0175 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.098</radius>
+              <length>0.035</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://bowl/meshes/bowl.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-0.41352 2.10485 0 0 -0 0</pose>
+    </model>
     <state world_name='default'>
       <sim_time>2263 929000000</sim_time>
       <real_time>57 233928919</real_time>
       <wall_time>1634977569 931026499</wall_time>
       <iterations>39838</iterations>
+      <model name='bowl'>
+        <pose frame=''>-0.3 0.5 1.015 0 -0 0.275846</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>-0.3 0.5 1.015 0 -0 0.275846</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0 0 19.6 -3e-06 -1e-06 -0</acceleration>
+          <wrench>-0 0 1.96 0 -0 0</wrench>
+        </link>
+      </model>
       <model name='ground_plane'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -126,7 +202,16 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-
+      <model name='unit_box_blue'>
+        <pose frame=''>0.299999 0.5 1.04493 -1e-06 -2e-05 1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.299999 0.5 1.04493 -1e-06 -2e-05 1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
       <light name='sun'>
         <pose frame=''>0 0 10 0 -0 0</pose>
       </light>
@@ -138,8 +223,6 @@
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
-
-    <!-- Table manipuilat on it -->
     <model name='nist_elevated_floor_120'>
       <static>1</static>
       <link name='nist_elevated_floor_120'>
@@ -179,19 +262,6 @@
       </link>
       <pose frame=''>0.297914 -0.687027 0 0 -0 0</pose>
     </model>
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Table model with Human on it -->
     <model name='table'>
       <static>1</static>
       <link name='link'>
@@ -387,139 +457,107 @@
       </link>
       <pose frame=''>0.270759 1.80105 0 0 -0 0</pose>
     </model>
-
-
-
-
-
-   <!-- Human  -->
-
-<model name="human_mannequin">
-  <static>1</static> <!-- Makes the model static and unaffected by gravity -->
-  <link name="link">
-    <!-- Collision geometry -->
-    <collision name="collision">
-      <pose>0 0 1.093042 -0.030042 0 1.570796</pose> <!-- Position on the table -->
-      <geometry>
-        <mesh>
-          <uri>file://media/models/walk.dae</uri> <!-- Path to the human model file -->
-          <scale>1 1 1</scale>
-        </mesh>
-      </geometry>
-      <surface>
-        <contact>
-          <ode/>
-        </contact>
-        <friction>
-          <ode>
-            <mu>0.6</mu>
-            <mu2>0.6</mu2>
-          </ode>
-          <torsional>
-            <ode/>
-          </torsional>
-        </friction>
-        <bounce/>
-      </surface>
-      <max_contacts>10</max_contacts>
-    </collision>
-
-    <!-- Visual geometry -->
-    <visual name="visual">
-      <pose>0 0 1.093042 -0.030042 0 1.570796</pose> <!-- Same position as collision -->
-      <geometry>
-        <mesh>
-          <uri>file://media/models/walk.dae</uri> <!-- Path to the human model file -->
-          <scale>1 1 1</scale>
-        </mesh>
-      </geometry>
-      <material>
-        <script>
-          <uri>file://media/materials/scripts/gazebo.material</uri>
-          <name>Gazebo/Human</name>
-        </script>
-      </material>
-    </visual>
-
-    <self_collide>0</self_collide>
-    <enable_wind>0</enable_wind>
-    <kinematic>0</kinematic>
-  </link>
- <pose>-0.717484 0.817494 1.091904 1.569204 0.0 1.570796</pose> <!-- Overall pose of the model -->
-</model>
-
-
-
-
-<!-- Transparent Rectangular Tube -->
-<model name="transparent_rectangular_tube">
-  <static>1</static> <!-- Makes the tube static -->
-  <link name="tube_link">
-    <!-- Collision for the tube -->
-    <collision name="tube_collision">
-      <geometry>
-        <box>
-          <size>0.3 0.8 1.9</size> <!-- Adjust size to fit around the mannequin -->
-        </box>
-      </geometry>
-    </collision>
-
-    <!-- Visual for the transparent tube -->
-    <visual name="tube_visual">
-      <geometry>
-        <box>
-        <size>0.3 0.8 1.9</size>  <!-- X- hieight Y- depth Z- weidht Same size as collision -->
-        </box>
-      </geometry>
-      <material>
-        <ambient>0.8 0.8 0.8 0.5</ambient> <!-- Light grey with transparency -->
-        <diffuse>0.8 0.8 0.8 0.5</diffuse> <!-- Adjust alpha for transparency -->
-        <specular>0.1 0.1 0.1 0.5</specular>
-      </material>
-    </visual>
-  </link>
-  <pose>0.18 0.817494 1.16 0 1.55591 0</pose> <!-- Position above the table and around the mannequin -->
-</model>
-
-<!-- Water inside the Tube -->
-<model name="water">
-  <static>1</static> <!-- Makes the water static -->
-  <link name="water_link">
-    <!-- Collision for the water (optional, set to zero friction) -->
-    <collision name="water_collision">
-      <geometry>
-        <box>
-          <size>0.28 0.7 1.8</size> <!-- Slightly smaller than the tube dimensions -->
-        </box>
-      </geometry>
-      <surface>
-        <friction>
-          <ode>
-            <mu>0</mu> <!-- Low friction to simulate water effect -->
-            <mu2>0</mu2>
-          </ode>
-        </friction>
-      </surface>
-    </collision>
-
-    <!-- Visual for the water -->
-    <visual name="water_visual">
-      <geometry>
-        <box>
-          <size>0.28 0.7 1.8</size> <!-- Same size as collision -->
-        </box>
-      </geometry>
-      <material>
-        <ambient>0.0 0.5 1.0 0.7</ambient> <!-- Blue color with some transparency -->
-        <diffuse>0.0 0.5 1.0 0.7</diffuse> <!-- Adjust alpha for water transparency -->
-        <specular>0.2 0.2 0.2 0.7</specular>
-      </material>
-    </visual>
-  </link>
-  <pose>0.18 0.817494 1.15 0 1.55591 0</pose> <!-- Same position as the tube -->
-</model>
-
-
-
+    <model name='unit_box_blue'>
+      <link name='link'>
+        <inertial>
+          <mass>0.1</mass>
+          <inertia>
+            <ixx>5.763e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>6.331e-05</iyy>
+            <iyz>0</iyz>
+            <izz>6.119e-05</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.063346 0.05771 0.059872</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+            <ambient>0 0 1 1</ambient>
+            <shader type='vertex'>
+              <normal_map>__default__</normal_map>
+            </shader>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <transparency>0</transparency>
+          <cast_shadows>1</cast_shadows>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.063346 0.05771 0.059872</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>5</mu>
+                <mu2>5</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+      </link>
+      <static>0</static>
+      <allow_auto_disable>1</allow_auto_disable>
+      <pose frame=''>0.299999 0.5 1.04493 -1e-06 -2e-05 1e-06</pose>
+    </model>
   </world>
 </sdf>
