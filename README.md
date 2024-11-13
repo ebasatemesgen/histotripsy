@@ -18,7 +18,7 @@ Histotripsy is a non-invasive therapeutic technique that uses focused ultrasound
    - The water in the simulation behaves as a solid object, preventing realistic submersion of the end-effector.
    - Buoyancy and water resistance forces are not yet implemented.
 
-   See [problem_1.gif](problem_1.gif) for a demonstration of the current issue.
+   See [./problem_1.gif](./problem_1.gif) for a demonstration of the current issue.
 
 ## Work in Progress
 
